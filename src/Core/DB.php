@@ -65,7 +65,13 @@ class DB
         }
 
         if ($stmt->execute()) {
-            return new $modelClass($data);
+            $model = new $modelClass($data);
+
+            if (property_exists($model, 'id')) {
+                $model->id = $this->db->lastInsertId();
+            }
+
+            return $model;
         }
 
         return false;
@@ -91,9 +97,9 @@ class DB
     /**
      * @param array $data
      *
-     * @return array
+     * @return string
      */
-    private function prepareForRemove(array $data)
+    private function prepareForRemove(array $data): string
     {
         $result = [];
 

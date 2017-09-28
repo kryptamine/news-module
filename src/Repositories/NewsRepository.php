@@ -1,9 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
-use App\Core\DB;
-use App\Models\Category;
+use App\Models\Categories;
 use App\Models\Likes;
 use App\Models\News;
 use App\Models\Users;
@@ -12,23 +11,8 @@ use App\Models\Users;
  * Class NewsModule
  * @package App
  */
-class NewsModule
+class NewsRepository extends BaseRepository
 {
-    /**
-     * @var DB
-     */
-    protected $db;
-
-    /**
-     * NewsModule constructor.
-     *
-     * @param DB $db
-     */
-    public function __construct(DB $db)
-    {
-        $this->db = $db;
-    }
-
     /**
      * @return News[] | boolean
      */
@@ -38,12 +22,12 @@ class NewsModule
     }
 
     /**
-     * @param Category $category
-     * @param string   $body
+     * @param Categories $category
+     * @param string     $body
      *
      * @return bool
      */
-    public function add(Category $category, string $body)
+    public function create(Categories $category, string $body)
     {
         return $this->db->save(News::class, ['body' => $body, 'category_id' => $category->id]);
     }
@@ -54,7 +38,7 @@ class NewsModule
      *
      * @return bool
      */
-    public function like(News $news, Users $user)
+    public function like(News $news, Users $user) : bool
     {
         return $this->db->save(Likes::class, ['user_id' => $user->id, 'news_id' => $news->id]);
     }
@@ -65,7 +49,7 @@ class NewsModule
      *
      * @return bool
      */
-    public function unlike(News $news, Users $user)
+    public function dislike(News $news, Users $user) : bool
     {
         return $this->db->remove(Likes::class, ['user_id' => $user->id, 'news_id' => $news->id]);
     }

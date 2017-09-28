@@ -3,10 +3,10 @@
 namespace App\Models;
 
 /**
- * Class Category
+ * Class Categories
  * @package App\Models
  */
-class Category extends BaseModel
+class Categories extends BaseModel
 {
     /**
      * @var int
