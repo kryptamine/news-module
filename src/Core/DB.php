@@ -28,7 +28,7 @@ class DB
         try {
             $this->db = new PDO("mysql:host=$host;dbname=$dbName", $user, $password);
         } catch (PDOException $e) {
-
+            //log it somehow
         }
     }
 
