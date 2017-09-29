@@ -8,10 +8,13 @@ namespace App\Models;
  */
 class Likes extends BaseModel
 {
+    /**
+     * @var int
+     */
     public $news_id;
 
     /**
-     * @var
+     * @var int
      */
     public $user_id;
 }
